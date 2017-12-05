@@ -4,7 +4,11 @@ import Vue from 'vue'
 import App from './App'
 
 
-var VueMaterial = require('vue-material')
+window.Helpers = require('../ab_modules/helpers');
+
+window.myInvests = require('../myCryptos.js');
+
+let VueMaterial = require('vue-material')
 
 Vue.use(VueMaterial)
 

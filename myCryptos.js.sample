@@ -1,0 +1,19 @@
+module.exports = (function() {
+    
+    return [
+      {
+        name : "BTC",
+        logo : "https://cdn.worldvectorlogo.com/logos/bitcoin.svg",
+        amount: 0.01185247,
+        value: 100,
+      },
+      {
+        name : "DASH",
+        logo : 'https://cdn.worldvectorlogo.com/logos/dash-3.svg',
+        amount: 0.0792,
+        value: 50
+      }
+  
+    ];
+   
+   }());

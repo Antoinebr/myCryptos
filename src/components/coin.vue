@@ -1,25 +1,25 @@
 <template>
       <div>
 
-        <md-card>
+        <md-card class="card-main">
             <md-card-header class="row">
 
                 <md-card-media class="col-xs-4 card-icon u-mts">
                     <img :src="crypto.logo" alt="People">
-                    <div class="md-title u-txtCenter">{{crypto.base}}</div>
+                    <div class="md-title u-txtCenter">{{crypto.ticker.base}}</div>
                 </md-card-media>
 
                 <md-card-header-text class="col-xs-8">
                 
                     <md-list>
                         <md-list-item>
-                            <span>Price</span> {{ Math.round(crypto.price,2) }} €
+                            <span>Price</span> {{ Math.round(crypto.ticker.price,2) }} €
                         </md-list-item>
                             <md-list-item>
-                            <span>Valorisation</span> {{ Math.round( (crypto.price * crypto.invest.amount) ,1) }} €
+                            <span>Valorisation</span> {{ crypto.valorisation }} €
                         </md-list-item>
                             <md-list-item>
-                            <span>Profit</span> {{ Math.round( ( (crypto.price * crypto.invest.amount) - crypto.invest.value  ) ,1) }}€
+                            <span>Profit</span> {{ crypto.profit }}  €
                         </md-list-item>
                     </md-list>
 
@@ -42,7 +42,8 @@ export default {
 
 <style scoped>
 
+.card-main{
+    overflow: hidden!important;
+}
 
-
-  
 </style>

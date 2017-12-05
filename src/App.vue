@@ -6,11 +6,11 @@
     </md-toolbar>
 
 
-  <main class="container u-pln u-prn">
+    <main class="container u-pln u-prn">
 
-    <coin  v-for="(crypto,index) in cryptos" :crypto="crypto" :key="index"></coin>
+      <coin  v-for="(crypto,index) in cryptos" :crypto="crypto" :key="index"></coin>
 
-  </main>
+    </main>
   
   
   </div>
@@ -26,20 +26,6 @@ export default {
   data(){
     return {
        cryptos : [],
-       logos : {
-         btc : "https://cdn.worldvectorlogo.com/logos/bitcoin.svg",
-         dash : 'https://cdn.worldvectorlogo.com/logos/dash-3.svg'
-       },
-        myInvest:{
-          btc:{
-             amount: 0.01185247,
-             value: 100,
-          },
-          dash:{
-            amount: 0.0792+0.2969,
-            value: 50+200
-          }
-        }
     }
   },
 
@@ -51,17 +37,16 @@ export default {
         .then( (response) => response.json() )
         .then( (res) => {
             
-            if( res.ticker.base === "BTC" ){
-              res.ticker.invest = this.myInvest.btc;
-              res.ticker.logo = this.logos.btc;
-            } 
+            let index = Helpers.findIndexInData(this.myInvest,'name',res.ticker.base);
 
-            if( res.ticker.base === "DASH" ){
-              res.ticker.invest = this.myInvest.dash;
-              res.ticker.logo = this.logos.dash;
-            } 
+            res.valorisation = Math.round( (res.ticker.price * this.myInvest[index].amount) ,1);
 
-            this.cryptos.push(res.ticker) 
+            res.profit = Math.round( ( (res.ticker.price * this.myInvest[index].amount) - this.myInvest[index].value  ) ,1);
+
+            res.logo = this.myInvest[index].logo;
+
+            this.cryptos.push(res);
+ 
         })
         .catch((err) => console.log(err) );
 
@@ -69,8 +54,9 @@ export default {
   },
   created(){
 
-      this.getCrypto('dash');
-      this.getCrypto('btc');
+      this.myInvest = myInvests;
+
+      this.myInvest.forEach( invest => this.getCrypto(invest.name) );
 
   }
 
@@ -94,5 +80,3 @@ export default {
   }
 
 </style>
-
-
